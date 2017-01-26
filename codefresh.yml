@@ -18,7 +18,7 @@ steps:
         version: '2'
         services:
           tomcat:
-            image: ncodefresh/tomcat7:latest
+            image: ncodefresh/tomcat7:7.0.75
             ports:
               - 8080
             links:
