@@ -1,0 +1,35 @@
+version: '1.0'
+
+steps:
+
+    build_image:
+      title: Building Image
+      type: build
+      #Important: rename this image to to a valid repository in your registry. For example: myUserName/vote
+      image_name: ncodefresh/java-spring-mvc-jdbc
+
+      #Dockerfile location should be relative to the working directory
+      dockerfile: Dockerfile
+      tag: ${{CF_BRANCH}}
+
+    launch_composition:
+      type: launch-composition
+      composition:
+        version: '2'
+        services:
+          tomcat:
+            image: ncodefresh/tomcat7:latest
+            ports:
+              - 8080
+            links:
+              - app
+            volumes_from:
+              - app
+          app:
+            image: ${{build_image}}
+            volumes:
+              - wars:/opt/tomcat/webapps
+        volumes:
+          wars:
+            driver: local
+      environment_name: 'java-spring-mvc-jdbc'
