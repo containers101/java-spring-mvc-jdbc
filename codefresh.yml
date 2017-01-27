@@ -44,3 +44,4 @@ steps:
           wars:
             driver: local
       environment_name: 'java-spring-mvc-jdbc'
+      entry_point: tomcat
