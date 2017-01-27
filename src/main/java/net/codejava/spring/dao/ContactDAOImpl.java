@@ -28,8 +28,8 @@ public class ContactDAOImpl implements ContactDAO {
 	}
 
 	private void createDatabase() {
-		String sql = "CREATE DATABASE IF NOT EXISTS contactdb;";
-		jdbcTemplate.execute(sql);
+//		String sql = "CREATE DATABASE IF NOT EXISTS contactdb;";
+//		jdbcTemplate.execute(sql);
 
 		String sqlTable = "CREATE TABLE `contact` (" +
 				"  `contact_id` int(11) NOT NULL AUTO_INCREMENT," +

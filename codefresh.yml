@@ -17,13 +17,13 @@ steps:
       composition:
         version: '2'
         services:
-          mysql:
+          database:
             image: mysql:latest
             ports:
               - 3306
             environment:
               MYSQL_ROOT_PASSWORD: admin
-              MYSQL_USER: admin
+              MYSQL_USER: test
               MYSQL_PASSWORD: admin
               MYSQL_DATABASE: contactdb
           tomcat:
@@ -39,7 +39,7 @@ steps:
             volumes:
               - wars:/opt/tomcat/webapps
             links:
-              - mysql
+              - database
         volumes:
           wars:
             driver: local
