@@ -35,7 +35,7 @@ steps:
     integration_test:
         title: Integration tests
         type: composition
-        composition: ${{main_clone}}/docker-compose.yml
+        composition: docker-compose.yml
         composition-candidates:
           main:
             image: nhoag/curl
