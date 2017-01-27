@@ -12,7 +12,37 @@ steps:
       dockerfile: Dockerfile
       tag: ${{CF_BRANCH}}
 
+    unit_test:
+      title: Unit Tests
+      # The image from which the executable container is created. It can be an explicit ID of a Docker image,
+      # or a variable that references a Build or Push step.
+      image: maven:latest
+      # One or more bash commands to execute your tests.
+      commands:
+        - mvn -version
+
+    push_to_registry:
+      title: Pushing to Docker Registry
+      type: push
+
+      #A candidate is the image that we want to push to registry
+      candidate: '${{build_image}}'
+
+      # You can push the image with whatever tag you want. In our example we use CF_BRANCH, which is a variable in
+      # the build process, accessible throughout the entire flow.
+      tag: '${{CF_BRANCH}}'
+
+    integration_test:
+        title: Integration tests
+        type: composition
+        composition: ${{main_clone}}/docker-compose.yml
+        composition-candidates:
+          main:
+            image: nhoag/curl
+            command: bash -c "sleep 20 && curl http://tomcat:8080/" | echo 'works'
+
     launch_composition:
+      title: Launch composition
       type: launch-composition
       composition:
         version: '2'
