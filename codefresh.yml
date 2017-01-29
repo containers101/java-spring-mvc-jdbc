@@ -2,6 +2,15 @@ version: '1.0'
 
 steps:
 
+    unit_test:
+      title: Unit Tests
+      # The image from which the executable container is created. It can be an explicit ID of a Docker image,
+      # or a variable that references a Build or Push step.
+      image: maven:latest
+      # One or more bash commands to execute your tests.
+      commands:
+        - mvn -version
+
     build_image:
       title: Building Image
       type: build
@@ -11,15 +20,6 @@ steps:
       #Dockerfile location should be relative to the working directory
       dockerfile: Dockerfile
       tag: ${{CF_BRANCH}}
-
-    unit_test:
-      title: Unit Tests
-      # The image from which the executable container is created. It can be an explicit ID of a Docker image,
-      # or a variable that references a Build or Push step.
-      image: maven:latest
-      # One or more bash commands to execute your tests.
-      commands:
-        - mvn -version
 
     push_to_registry:
       title: Pushing to Docker Registry
